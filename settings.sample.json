@@ -1,0 +1,7 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "<Azure Storage Connection String>",
+    "BlobStore": "<Azure Storage Connection String>"
+  }
+}

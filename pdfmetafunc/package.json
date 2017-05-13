@@ -1,0 +1,14 @@
+{
+  "name": "pdf2azsearch",
+  "version": "0.0.1",
+  "description": "Azure Function to take PDFs from Azure Storage, extract metadata (via Regular Expressions) and push to Azure Search for indexing.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"No test yet...\" && exit 1"
+  },
+  "author": "Marc Gagne (https://github.com/m-gagne)",
+  "license": "MIT",
+  "dependencies": {
+    "pdfjs-dist": "^1.8.342"
+  }
+}
