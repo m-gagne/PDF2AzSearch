@@ -2,12 +2,21 @@
     "disabled": false,
     "bindings": [
         {
-            "name": "document",
+            "name": "input",
             "type": "blobTrigger",
             "dataType": "binary",
             "direction": "in",
             "path": "inbound/{name}.pdf",
             "connection":"BlobStore"
-        }
+        },
+        {
+            "name": "out",
+            "type": "documentDB",
+            "databaseName": "documents",
+            "collectionName": "docs",
+            "createIfNotExists": true,
+            "connection": "DocumentDBConnectionString",     
+            "direction": "out"
+        }        
     ]
 }

@@ -1,44 +1,28 @@
 [
   {
-    "key": "Certificate",
+    "key": "Title",
     "type": "FirstSingle",
-    "expression": "Certificate:\\s+(\\d+)",
+    "expression": "Title:\\s+([^\\n]+)",
     "default": ""
   },
   {
-    "key": "MasterContract",
+    "key": "Author",
     "type": "FirstSingle",
-    "expression": "Master Contract:\\s+(\\d+)",
+    "expression": "Author:\\s+([^\\n]+)",
     "default": ""
   },
   {
-    "key": "Project",
+    "key": "Description",
     "type": "FirstSingle",
-    "expression": "Project:\\s+(\\d+)",
+    "expression": "Description:\\s+([^\\n]+)\\n",
     "default": ""
   },
   {
-    "key": "DateIssued",
-    "type": "FirstSingle",
-    "expression": "Date Issued:\\s+([^\n]+)",
-    "default": ""
-  },
-  {
-    "key": "IssuedTo",
-    "type": "FirstSingle",
-    "expression": "Issued To:\\s+([^\n]+)",
-    "default": ""
-  },
-  {
-    "key": "IssuedBy",
-    "type": "FirstSingle",
-    "expression": "Issued By:\\s+([^\n]+)",
-    "default": ""
-  },
-  {
-    "key": "Class",
+    "key": "Technologies",
     "type": "AllUnique",
-    "expression": "Class\\s+(\\d+\\s+\\d+)",
+    "startKeyword": "Technologies used:",
+    "endKeyword": "Github:",
+    "expression": "• ([^\\n]+)",
     "default": "",
     "options": {
       "flags": "gi"

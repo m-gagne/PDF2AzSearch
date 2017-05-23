@@ -11,7 +11,6 @@ var PDFTextExtractor = function () {
 
 PDFTextExtractor.prototype = {
   getDataFromFile: function(file) {
-    console.log("Reading file: " + file);
     if (!fs.existsSync(file)) {
       console.log("Error, could not open file: " + file);
       return;
@@ -37,10 +36,11 @@ PDFTextExtractor.prototype = {
             return page.getTextContent().then(function (content) {
               content.items.map(function (item) {
                 currentY = parseInt(item.transform[5]);
+                //console.log(item.str + " -> " + currentY + "," + lastY + "(" + (currentY - lastY) + ")");
                 if ( documentText !== "" ) {
                   if ( currentY != lastY ) {
                   documentText += "\n";
-                  } else {
+                  } else if(currentY - lastY > 1) {
                     documentText += " ";
                   }
                 }

@@ -1,5 +1,6 @@
 # Test files
 test.js
+sample_doc.docx
 
 # Exclude configuration files used by Azure CLI
 settings.json

@@ -10,20 +10,37 @@ var RXProcessor = function (config) {
   }
 }
 
+RXProcessor.prototype.prepareText = function(text, rule)
+{
+  let options = objectAssign({}, this.defaultOptions, rule.options);
+  let preparedText = text;
+  if (rule.startKeyword && rule.endKeyword) {
+    let start = preparedText.toLowerCase().indexOf(rule.startKeyword.toLowerCase()) + rule.startKeyword.length;
+    let end = preparedText.toLowerCase().indexOf(rule.endKeyword.toLowerCase());
+    preparedText = preparedText.substring(start, end);
+  }
+
+  if (options.trimWhiteSpace) {
+    preparedText = preparedText.trim();
+  }
+
+  return preparedText;
+}
+
 RXProcessor.prototype.process = function(text, rules) {
-  var __this = this;
   var data = {};
 
-  rules.forEach(function (rule) {
+  rules.forEach((rule) => {
+    let preparedText = this.prepareText(text, rule);
     switch (rule.type.toUpperCase()) {
       case "FIRSTSINGLE":
-        data[rule.key] = __this.extractFirstSingle(text, rule);
+        data[rule.key] = this.extractFirstSingle(preparedText, rule);
         break;
       case "ALL":
-        data[rule.key] = __this.extractAll(text, rule);
+        data[rule.key] = this.extractAll(preparedText, rule);
         break;
       case "ALLUNIQUE":
-        data[rule.key] = __this.extractAllUnique(text, rule);
+        data[rule.key] = this.extractAllUnique(preparedText, rule);
         break;
     }
   });
@@ -49,7 +66,6 @@ RXProcessor.prototype.extractAllUnique = function(text, rule) {
   }
   
   data = data.filter(onlyUnique);
-  console.log(data);
   return data;
 }
 
