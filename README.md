@@ -41,7 +41,7 @@ If you want to run your expression on a subset of the text, then specify the sta
 
 ## Sample PDF
 
-The result of processing the sample file in [/sample/sample_doc.pdf](/sample/sample_doc.pdf) is the following document being stored in DocumentDB:
+The result of processing the sample file in [/sample/sample_doc.pdf](/sample/sample_doc.pdf) using the sample [rules.json](functions/pdfmetafunc/rules.json) is the following document being stored in DocumentDB:
 
         {
           "id": "dafe8948ef379e6aef78cc1b059122cebcae436d7dd878375f16094a99a9243b",
