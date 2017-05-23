@@ -23,7 +23,10 @@ module.exports = function (context, document) {
       last_updated: new Date(),
       meta: metaData
     }
-    console.log("Updating document => " + document.id);
+
+    // DEBUG LOGGING
+    context.log("Updating document => " + document.id);
+    context.log("Metadata found => " + JSON.stringify(document.meta, null, 4));
 
     context.bindings.out = document;
     context.done();

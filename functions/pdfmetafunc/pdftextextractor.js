@@ -23,7 +23,7 @@ PDFTextExtractor.prototype = {
       var document = PDFJS.getDocument(data).then(function (document) {
         var lastPromise, documentInfo;
         var documentText = "";
-        var lastY, currentY;
+        var lastX, lastY, currentX, currentY;
 
         lastPromise = document.getMetadata().then(function (data) {
           documentInfo = data;
@@ -33,14 +33,17 @@ PDFTextExtractor.prototype = {
           return document.getPage(pageNumber).then(function (page) {
             lastY = 0;
             currentY = 0;
+            lastX = 0;
+            currentX = 0;
             return page.getTextContent().then(function (content) {
               content.items.map(function (item) {
+                currentX = parseInt(item.transform[4]);
                 currentY = parseInt(item.transform[5]);
-                //console.log(item.str + " -> " + currentY + "," + lastY + "(" + (currentY - lastY) + ")");
+                //console.log(item.str + " -> Current X,Y:" + currentX + "," + currentY);
                 if ( documentText !== "" ) {
                   if ( currentY != lastY ) {
                   documentText += "\n";
-                  } else if(currentY - lastY > 1) {
+                  } else if(currentY - lastY != 0) {
                     documentText += " ";
                   }
                 }
