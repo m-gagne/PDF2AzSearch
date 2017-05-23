@@ -8,3 +8,4 @@ This Azure Function binds to an Azure Storage container to process PDF files, ex
   * For local testing (using the [Azure Storage Emulator](https://docs.microsoft.com/en-us/azure/storage/storage-use-emulator)) you can use this connection string
           
           DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://127.0.0.1:10000/devstoreaccount1;TableEndpoint=http://127.0.0.1:10002/devstoreaccount1;QueueEndpoint=http://127.0.0.1:10001/devstoreaccount1;
+2. Publish the function to Azure or use the [Azure Function Command Line](https://github.com/Azure/azure-functions-cli) utility.

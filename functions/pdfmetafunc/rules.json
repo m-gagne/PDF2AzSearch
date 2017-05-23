@@ -1,0 +1,47 @@
+[
+  {
+    "key": "Certificate",
+    "type": "FirstSingle",
+    "expression": "Certificate:\\s+(\\d+)",
+    "default": ""
+  },
+  {
+    "key": "MasterContract",
+    "type": "FirstSingle",
+    "expression": "Master Contract:\\s+(\\d+)",
+    "default": ""
+  },
+  {
+    "key": "Project",
+    "type": "FirstSingle",
+    "expression": "Project:\\s+(\\d+)",
+    "default": ""
+  },
+  {
+    "key": "DateIssued",
+    "type": "FirstSingle",
+    "expression": "Date Issued:\\s+([^\n]+)",
+    "default": ""
+  },
+  {
+    "key": "IssuedTo",
+    "type": "FirstSingle",
+    "expression": "Issued To:\\s+([^\n]+)",
+    "default": ""
+  },
+  {
+    "key": "IssuedBy",
+    "type": "FirstSingle",
+    "expression": "Issued By:\\s+([^\n]+)",
+    "default": ""
+  },
+  {
+    "key": "Class",
+    "type": "AllUnique",
+    "expression": "Class\\s+(\\d+\\s+\\d+)",
+    "default": "",
+    "options": {
+      "flags": "gi"
+    }    
+  }
+]
