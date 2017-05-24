@@ -51,6 +51,14 @@
                             "value": "[variables('contentShareName')]"
                         },
                         {
+                            "name": "BlobStore",
+                            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageName'),';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageName')), '2015-05-01-preview').key1)]"
+                        },
+                        {
+                            "name": "DocumentDBConnectionString",
+                            "value": "[parameters('documentDBConnectionString')]"
+                        },
+                        {
                             "name": "ROUTING_EXTENSION_VERSION",
                             "value": "~0.1"
                         }
