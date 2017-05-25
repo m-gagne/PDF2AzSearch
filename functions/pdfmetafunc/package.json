@@ -10,6 +10,7 @@
   "license": "MIT",
   "dependencies": {
     "object-assign": "^4.1.1",
-    "pdfjs-dist": "^1.8.342"
+    "pdfjs-dist": "^1.8.342",
+    "textmeta": "^0.0.1"
   }
 }

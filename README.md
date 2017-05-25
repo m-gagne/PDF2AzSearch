@@ -23,21 +23,15 @@ The format for a rule is
       "expression": "<Regular Expression>",
       "default": "<Default Value if no matches>"
       "startKeyword": "Optional: <Keyword for substring match start>",
-      "endKeyword": "Optional: <Keyword for substring match end>",      
+      "endKeyword": "Optional: <Keyword for substring match end>",
       "options": {
         "flags": "<Optional RegularExpression Flags>"
       }
     }
 
-#### Rule Types:
+#### More on rules:
 
-* "FirstSingle" : Will capture the first match.
-* "All" : Will capture all matches.
-* "AllUnique" : Will capture all matches and return the list of unique strings.
-
-#### Start/End Keywords
-
-If you want to run your expression on a subset of the text, then specify the start/end keywords and only the text inbetween will be used.
+To learn more about the rules/how the text is extracted please refer see [https://github.com/m-gagne/textmeta](https://github.com/m-gagne/textmeta)
 
 ## Sample PDF
 
