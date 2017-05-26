@@ -1,6 +1,6 @@
 # PDF to Azure Search
 
-This Azure Function binds to an [Azure Storage](https://docs.microsoft.com/en-us/azure/storage/storage-create-storage-account) Blob container and triggers when a PDF file is stored. The function extracts text from the PDF file using [pdf.js](https://github.com/mozilla/pdf.js) and using the supplies rules extrats metadata from the text & stores the result (text + metadata) in a [DocumentDB](https://azure.microsoft.com/en-us/services/cosmos-db/) collection which can then be used as a datasource for [Azure Search](https://azure.microsoft.com/en-us/services/search/).
+This Azure Function binds to an [Azure Storage](https://docs.microsoft.com/en-us/azure/storage/storage-create-storage-account) Blob container and triggers when a PDF file is stored. The function extracts text from the PDF file using [pdf.js](https://github.com/mozilla/pdf.js) and using the supplies rules extracts metadata from the text & stores the result (text + metadata) in a [DocumentDB](https://azure.microsoft.com/en-us/services/cosmos-db/) collection which can then be used as a datasource for [Azure Search](https://azure.microsoft.com/en-us/services/search/).
 
 
 ## Prerequisites
