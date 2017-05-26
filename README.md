@@ -25,29 +25,29 @@ This Azure Function binds to an [Azure Storage](https://docs.microsoft.com/en-us
 
 1. *Optional (but recommended)*: Create a [Resource Group](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-overview) to contain the resources you will create below.
 1. Create an [Azure Storage Account](https://docs.microsoft.com/en-us/azure/storage/storage-create-storage-account) (General-Purpose or Blob, either will work)
-  * Create a public or private (depending on your needs) blob container called `inbound`
-  * I suggest using the [Azure Storage Explorer](http://storageexplorer.com/) tool for this.
+    * Create a public or private (depending on your needs) blob container called `inbound`
+    * I suggest using the [Azure Storage Explorer](http://storageexplorer.com/) tool for this.
 1. Create a [Document DB (using the SQL API)](https://docs.microsoft.com/en-us/azure/cosmos-db/introduction) service, follow the steps **Create a database account** [here](https://docs.microsoft.com/en-us/azure/cosmos-db/create-documentdb-dotnet)
-  * Be sure to create a database called `documents` and a collection called `docs`
-  * For testing when creating your collection start with the smallest/cheapest configuration which would be
-    * Fixed Capacity(10GB)
-    * 400 RU's
-    * No partition key
+    * Be sure to create a database called `documents` and a collection called `docs`
+    * For testing when creating your collection start with the smallest/cheapest configuration which would be
+      * Fixed Capacity(10GB)
+      * 400 RU's
+      * No partition key
 1. Create an [Azure Function](https://docs.microsoft.com/en-us/azure/azure-functions/functions-overview) or use the [Azure Function Command Line](https://github.com/Azure/azure-functions-cli) utility to run this function locally
-  * If you fork this repo you can use the [continious deployment](https://docs.microsoft.com/en-us/azure/azure-functions/functions-continuous-deployment) option.
-  * I suggest using the `Consumption Plan` for testing and small/medium workloads.
+    * If you fork this repo you can use the [continious deployment](https://docs.microsoft.com/en-us/azure/azure-functions/functions-continuous-deployment) option.
+    * I suggest using the `Consumption Plan` for testing and small/medium workloads.
   * Since you already have a storage account that you previously created, I would suggest using that instead of creating a seperate one.
 1. Create an [Azure Search](https://docs.microsoft.com/en-us/azure/search/search-create-service-portal) instance
-  * *Tip*: Use the Free pricing tier for testing!
+    * *Tip*: Use the Free pricing tier for testing!
 
 ### Configuration
 
 > See `settings.sample.json` for all configuration options
 
 1. In you Azure Function you will need to supply a few [App Settings](https://docs.microsoft.com/en-us/azure/azure-functions/functions-how-to-use-azure-function-app-settings), specifically
-  * `BlobStore` : The Azure Storage Account connection string which you can find in the `Access keys` blade for your Storage Account. The function will trigger whenever a .pdf file is uploaded into the `uploads` container of this storage account.
-    * *Note:* `AzureWebJobsStorage` & `BlobStore` can be the same or different storage accounts depending on your needs.
-  * `DocumentDBConnectionString` : Connection string to your Azure DocumentDB database. This can be found in the `Keys` blade of your DocumentDB under `PRIMARY CONNECTION STRING`
+    * `BlobStore` : The Azure Storage Account connection string which you can find in the `Access keys` blade for your Storage Account. The function will trigger whenever a .pdf file is uploaded into the `uploads` container of this storage account.
+      * *Note:* `AzureWebJobsStorage` & `BlobStore` can be the same or different storage accounts depending on your needs.
+    * `DocumentDBConnectionString` : Connection string to your Azure DocumentDB database. This can be found in the `Keys` blade of your DocumentDB under `PRIMARY CONNECTION STRING`
 
 ### Quick Test
 
@@ -124,11 +124,11 @@ The included [search/PDF2Search.postman_collection.json](search/PDF2Search.postm
 
 1. Open Postman, click `Import` and import the [search/PDF2Search.postman_collection.json](search/PDF2Search.postman_collection.json) collection.
 1. Configure your [environment variables in Postman](https://www.getpostman.com/docs/environments) to include
-  * `DocDbConnectionString` : Which is the connection string for your DocumentDB database.
-      * Note: When setting your DocumentDB connection string as the data source, you will need to include the Database name in the string like so `AccountEndpoint=https://[your account name].documents.azure.com;AccountKey=[your account key];Database=[your database id]`
-  * `SearchAdminKey` : Your Azure Search admin key (so you can create/delete data sources, indexes, indexers etc.)
-  * `SearchAccountName` : The name of your Azure Search service
-      * Note: This is just the *name* not the full *url*.
+    * `DocDbConnectionString` : Which is the connection string for your DocumentDB database.
+        * Note: When setting your DocumentDB connection string as the data source, you will need to include the Database name in the string like so `AccountEndpoint=https://[your account name].documents.azure.com;AccountKey=[your account key];Database=[your database id]`
+    * `SearchAdminKey` : Your Azure Search admin key (so you can create/delete data sources, indexes, indexers etc.)
+    * `SearchAccountName` : The name of your Azure Search service
+        * Note: This is just the *name* not the full *url*.
 1. In the `001 - Setup` folder `Send` the `Create Data Source`, `Create Index` & `Create Indexer` requests.
-  * You should look at the `Body` of each of these requests to better understand what they are doing
+    * You should look at the `Body` of each of these requests to better understand what they are doing
 1. After a brief moment (give it a minute) you should now be able to run the `002 - Searches/Sample Query` request to search your document!
