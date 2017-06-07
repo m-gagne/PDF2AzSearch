@@ -1,0 +1,226 @@
+{
+	"variables": [],
+	"info": {
+		"name": "PDF2Search",
+		"_postman_id": "79a2872c-64ec-7699-6442-79074724e3cc",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "001 - Setup",
+			"description": "",
+			"item": [
+				{
+					"name": "Create Data Source",
+					"request": {
+						"url": "https://{{SearchAccountName}}.search.windows.net/datasources?api-version=2015-02-28",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "api-key",
+								"value": "{{SearchAdminKey}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"documents-source\",\r\n    \"type\": \"documentdb\",\r\n    \"credentials\": {\r\n        \"connectionString\": \"{{DocDbConnectionString}}\"\r\n    },\r\n    \"container\": { \"name\": \"docs\", \"query\": \"SELECT c._ts, c.id, c.name, c.text, c.meta.Title, c.meta.Author, c.meta.Description, c.meta.Technologies FROM c WHERE c._ts >= @HighWaterMark\"},\r\n    \"dataChangeDetectionPolicy\": {\r\n        \"@odata.type\": \"#Microsoft.Azure.Search.HighWaterMarkChangeDetectionPolicy\",\r\n        \"highWaterMarkColumnName\": \"_ts\"\r\n    }\r\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete  Data Source",
+					"request": {
+						"url": "https://{{SearchAccountName}}.search.windows.net/datasources/documents-source?api-version=2015-02-28-Preview",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "api-key",
+								"value": "{{SearchAdminKey}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Create Index",
+					"request": {
+						"url": "https://{{SearchAccountName}}.search.windows.net/indexes/documents-index?api-version=2015-02-28-Preview",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "api-key",
+								"value": "{{SearchAdminKey}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"@odata.context\": \"https://{{SearchAccountName}}.search.windows.net/$metadata#indexes/$entity\",\r\n  \"name\": \"documents-index\",\r\n  \"fields\": [\r\n    {\r\n      \"name\": \"id\",\r\n      \"type\": \"Edm.String\",\r\n      \"searchable\": false,\r\n      \"filterable\": true,\r\n      \"retrievable\": true,\r\n      \"sortable\": false,\r\n      \"facetable\": false,\r\n      \"key\": true,\r\n      \"indexAnalyzer\": null,\r\n      \"searchAnalyzer\": null,\r\n      \"analyzer\": null,\r\n      \"synonymMaps\": []\r\n    },\r\n    {\r\n      \"name\": \"name\",\r\n      \"type\": \"Edm.String\",\r\n      \"searchable\": true,\r\n      \"filterable\": true,\r\n      \"retrievable\": true,\r\n      \"sortable\": true,\r\n      \"facetable\": false,\r\n      \"key\": false\r\n    },\r\n    {\r\n      \"name\": \"text\",\r\n      \"type\": \"Edm.String\",\r\n      \"searchable\": true,\r\n      \"filterable\": false,\r\n      \"retrievable\": true,\r\n      \"sortable\": false,\r\n      \"facetable\": false,\r\n      \"key\": false,\r\n      \"indexAnalyzer\": null,\r\n      \"searchAnalyzer\": null,\r\n      \"analyzer\": \"en.microsoft\",\r\n      \"synonymMaps\": []\r\n    },\r\n    {\r\n      \"name\": \"Title\",\r\n      \"type\": \"Edm.String\",\r\n      \"searchable\": true,\r\n      \"filterable\": true,\r\n      \"retrievable\": true,\r\n      \"sortable\": true,\r\n      \"facetable\": false,\r\n      \"key\": false,\r\n      \"indexAnalyzer\": null,\r\n      \"searchAnalyzer\": null,\r\n      \"analyzer\": \"en.microsoft\",\r\n      \"synonymMaps\": []\r\n    },\r\n    {\r\n      \"name\": \"Author\",\r\n      \"type\": \"Edm.String\",\r\n      \"searchable\": true,\r\n      \"filterable\": true,\r\n      \"retrievable\": true,\r\n      \"sortable\": true,\r\n      \"facetable\": false,\r\n      \"key\": false,\r\n      \"indexAnalyzer\": null,\r\n      \"searchAnalyzer\": null,\r\n      \"analyzer\": \"en.microsoft\",\r\n      \"synonymMaps\": []\r\n    },\r\n    {\r\n      \"name\": \"Description\",\r\n      \"type\": \"Edm.String\",\r\n      \"searchable\": true,\r\n      \"filterable\": true,\r\n      \"retrievable\": true,\r\n      \"sortable\": true,\r\n      \"facetable\": false,\r\n      \"key\": false,\r\n      \"indexAnalyzer\": null,\r\n      \"searchAnalyzer\": null,\r\n      \"analyzer\": \"en.microsoft\",\r\n      \"synonymMaps\": []\r\n    },    \r\n    {\r\n      \"name\": \"Technologies\",\r\n      \"type\": \"Collection(Edm.String)\",\r\n      \"searchable\": true,\r\n      \"filterable\": true,\r\n      \"retrievable\": true,\r\n      \"sortable\": false,\r\n      \"facetable\": true,\r\n      \"key\": false,\r\n      \"indexAnalyzer\": null,\r\n      \"searchAnalyzer\": null,\r\n      \"analyzer\": \"en.microsoft\",\r\n      \"synonymMaps\": []\r\n    } \r\n  ],\r\n  \"defaultScoringProfile\": \"\",\r\n  \"corsOptions\":\r\n  {\r\n      \"allowedOrigins\": [\"*\"]\r\n  },\r\n  \"suggesters\": [\r\n    {\r\n      \"name\": \"sg\",\r\n      \"searchMode\": \"analyzingInfixMatching\",\r\n      \"sourceFields\": [\"Title\", \"Technologies\"]\r\n    }\r\n  ],\r\n  \"analyzers\": [],\r\n  \"tokenizers\": [],\r\n  \"tokenFilters\": [],\r\n  \"charFilters\": []\r\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Index",
+					"request": {
+						"url": "https://{{SearchAccountName}}.search.windows.net/indexes/documents-index?api-version=2015-02-28-Preview",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "api-key",
+								"value": "{{SearchAdminKey}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Create Indexer",
+					"request": {
+						"url": "https://{{SearchAccountName}}.search.windows.net/indexers?api-version=2015-02-28-Preview",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "api-key",
+								"value": "{{SearchAdminKey}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\" : \"documents-indexer\",\r\n  \"dataSourceName\" : \"documents-source\",\r\n  \"targetIndexName\" : \"documents-index\",\r\n  \"fieldMappings\" : []\r\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Indexer",
+					"request": {
+						"url": "https://{{SearchAccountName}}.search.windows.net/indexers/documents-indexer?api-version=2015-02-28-Preview",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "api-key",
+								"value": "{{SearchAdminKey}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "002 - Searches",
+			"description": "",
+			"item": [
+				{
+					"name": "Sample Query",
+					"request": {
+						"url": "https://{{SearchAccountName}}.search.windows.net/indexes/documents-index/docs?api-version=2015-02-28-Preview&search=*&$count=true&$filter=Author eq 'Marc Gagne'&queryType=full",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "api-key",
+								"value": "{{SearchAdminKey}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "Compound search for tag + city using facets on provider"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "003 - Management",
+			"description": "",
+			"item": [
+				{
+					"name": "Run Indexer (Direct via Azure Search)",
+					"request": {
+						"url": "https://{{SearchAccountName}}.search.windows.net/indexers/documents-indexer/run?api-version=2015-02-28",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "api-key",
+								"value": "{{SearchAdminKey}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

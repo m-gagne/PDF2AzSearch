@@ -42,7 +42,7 @@ This Azure Function binds to an [Azure Storage](https://docs.microsoft.com/en-us
 
 ### Configuration
 
-See [functions/settings.sample.json](functions/settings.sample.json) for all Azure Function app settings.
+See [functions/settings.sample.json](functions/settings.sample.json) for all Azure Function app settings. Rename this to `local.settings.json` if running under the [Azure Function Command Line](https://github.com/Azure/azure-functions-cli) utility.
 
 1. In you Azure Function you will need to supply a few [App Settings](https://docs.microsoft.com/en-us/azure/azure-functions/functions-how-to-use-azure-function-app-settings), specifically
     * `BlobStore` : The Azure Storage Account connection string which you can find in the `Access keys` blade for your Storage Account. The function will trigger whenever a .pdf file is uploaded into the `uploads` container of this storage account, again I recommend using the [Azure Storage Explorer](http://storageexplorer.com/) for this.
